@@ -6,7 +6,7 @@ The bot uses **PID control** to continuously measure its tilt angle and drive th
 
 ## Components Used
 
-- Arduino Uno/Nano
+- Arduino Uno
 - MPU6050 IMU
 - L298N Motor Driver
 - 2 DC geared motors
