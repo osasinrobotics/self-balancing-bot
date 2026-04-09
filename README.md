@@ -118,9 +118,7 @@ if (abs(angle) > 45.0)
 - Prevents runaway behavior
 
 Challenges Faced
-Incorrect upright reference angle
-Sensor calibration inconsistencies
-Derivative term causing instability
-Motors spinning without proper correction
-One-sided falling due to imbalance
-Improper stop condition behavior
+- Incorrect upright reference angle
+- Sensor calibration inconsistencies
+- Motors spinning without proper correction
+- One-sided falling due to imbalance
