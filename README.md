@@ -35,9 +35,7 @@ Instead of falling, the robot:
 
 The controller computes:
 
-\[
 error = setpoint - angle
-\]
 
 Where:
 - `setpoint = 0°` (upright position)
