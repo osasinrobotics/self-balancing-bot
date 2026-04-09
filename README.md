@@ -46,7 +46,7 @@ Where:
 The control output is:
 
 $$
-U = K_p \cdot error + K_i \cdot \sum error + K_d \cdot (error - prev\_error)
+U = K_p \cdot error + K_i \cdot \sum error + K_d \cdot (error - prev\_ error)
 $$
 
 
