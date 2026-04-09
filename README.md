@@ -1,4 +1,4 @@
-# Self-Balancing Bot using MPU6050, L298N, and Arduino
+# Self-Balancing Robot Using PID Control
 
 This project is a two-wheeled self-balancing robot built using an Arduino Uno, MPU6050 IMU, and L298N motor driver.
 
