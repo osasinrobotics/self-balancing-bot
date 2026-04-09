@@ -117,8 +117,14 @@ if (abs(angle) > 45.0)
 - PID resets
 - Prevents runaway behavior
 
-Challenges Faced
-- Incorrect upright reference angle
-- Sensor calibration inconsistencies
-- Motors spinning without proper correction
-- One-sided falling due to imbalance
+## Challenges Faced
+
+Some of the major issues during development included:
+
+- Incorrect balance angle reference
+- Derivative term behaving too aggressively
+- Motors spinning but not correcting properly
+- One-sided falling due to tuning and motor behavior
+- Stop condition not triggering correctly at first
+
+These were solved through debugging, calibration, and PID tuning.
