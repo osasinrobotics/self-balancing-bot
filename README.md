@@ -71,7 +71,7 @@ This output `U` determines:
    - Magnitude → speed
 5. Robot moves to stay balanced
 
-## 🎯 PID Values Used
+## PID Values Used
 
 ```cpp
 kp = 30;
