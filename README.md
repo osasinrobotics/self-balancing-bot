@@ -27,7 +27,7 @@ This robot behaves like an inverted pendulum:
 - The system must **continuously correct itself**
 
 Instead of falling, the robot:
-→ **moves its wheels under its center of mass** to regain balance
+**moves its wheels under its center of mass** to regain balance
 
 ---
 
