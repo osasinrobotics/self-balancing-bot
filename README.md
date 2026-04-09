@@ -45,9 +45,10 @@ Where:
 
 The control output is:
 
-\[
+$$
 U = K_p \cdot error + K_i \cdot \sum error + K_d \cdot (error - prev\_error)
-\]
+$$
+
 
 Where:
 - **P (Proportional):** reacts to tilt angle
@@ -103,3 +104,23 @@ kd = 6;
 | GND | GND |
 | SDA | A4 |
 | SCL | A5 |
+
+
+### Safety Condition
+
+If the robot tilts too far:
+```cpp
+if (abs(angle) > 45.0)
+```
+
+- Motors stop immediately
+- PID resets
+- Prevents runaway behavior
+
+Challenges Faced
+Incorrect upright reference angle
+Sensor calibration inconsistencies
+Derivative term causing instability
+Motors spinning without proper correction
+One-sided falling due to imbalance
+Improper stop condition behavior
