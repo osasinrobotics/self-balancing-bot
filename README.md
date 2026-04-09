@@ -1,50 +1,105 @@
 # Self-Balancing Bot using MPU6050, L298N, and Arduino
 
-This project is a two-wheeled self-balancing robot built using an Arduino, MPU6050 IMU sensor, and L298N motor driver.
+This project is a two-wheeled self-balancing robot built using an Arduino Uno, MPU6050 IMU, and L298N motor driver.
 
-The bot uses **PID control** to continuously measure its tilt angle and drive the motors in a way that helps it maintain balance similar to the **inverted pendulum problem** in control systems.
+The robot maintains its balance using a **PID controller**, similar to the classic **inverted pendulum problem** in control systems.
+
+---
 
 ## Components Used
 
 - Arduino Uno
-- MPU6050 IMU
+- MPU6050 IMU (Gyroscope + Accelerometer)
 - L298N Motor Driver
 - 2 DC geared motors
 - Wheels
-- Chassis made with plywood
-- 2 3.7 V batteries
+- Plywood chassis
+- 2 × 3.7V Li-ion batteries
+
+---
+
+## System Concept (Inverted Pendulum)
+
+This robot behaves like an inverted pendulum:
+
+- The upright position is **unstable**
+- Any small tilt will cause it to fall
+- The system must **continuously correct itself**
+
+Instead of falling, the robot:
+→ **moves its wheels under its center of mass** to regain balance
+
+---
+
+## Control System (PID)
+
+The controller computes:
+
+\[
+error = setpoint - angle
+\]
+
+Where:
+- `setpoint = 0°` (upright position)
+- `angle` = current tilt from MPU6050
+
+The control output is:
+
+\[
+U = K_p \cdot error + K_i \cdot \sum error + K_d \cdot (error - prev\_error)
+\]
+
+Where:
+- **P (Proportional):** reacts to tilt angle
+- **I (Integral):** corrects long-term drift
+- **D (Derivative):** reacts to falling speed
+
+This output `U` determines:
+- **motor direction** (forward/backward)
+- **motor speed** (PWM)
+
+
 
 ## How It Works
 
-The MPU6050 provides the robot’s tilt angle.
+1. MPU6050 measures tilt angle (`getAngleX()`)
+2. Arduino calculates error from upright position
+3. PID controller computes correction (`output`)
+4. Output is sent to motors via L298N:
+   - Sign → direction
+   - Magnitude → speed
+5. Robot moves to stay balanced
 
-The Arduino reads the angle, compares it to the desired upright position, and calculates an error.
-
-A PID controller then determines how much motor correction is needed:
-
-- **P (Proportional):** reacts to how far the robot is leaning
-- **I (Integral):** reacts to accumulated leaning over time
-- **D (Derivative):** reacts to how fast the robot is falling
-
-The resulting control signal is sent to the motors through the L298N motor driver.
-
-## PID Values Used
+## 🎯 PID Values Used
 
 ```cpp
-kp = 30
-ki = 0
-kd = 6
+kp = 30;
+ki = 0;
+kd = 6;
 ```
 
 
-## Challenges Faced
 
-Some of the major issues during development included:
+### Pin Configuration
 
-- Incorrect balance angle reference
-- Derivative term behaving too aggressively
-- Motors spinning but not correcting properly
-- One-sided falling due to tuning and motor behavior
-- Stop condition not triggering correctly at first
+#### Motor Driver (L298N → Arduino)
 
-These were solved through debugging, calibration, and PID tuning.
+
+| Function | Arduino Pin |
+| :--- | :--- |
+| ENA (Left PWM) | 10 |
+| IN1 | 4 |
+| IN2 | 5 |
+| ENB (Right PWM) | 11 |
+| IN3 | 6 |
+| IN4 | 7 |
+
+#### MPU6050 (I2C)
+
+
+| MPU6050 | Arduino |
+| :--- | :--- |
+| VCC | 5V |
+| GND | GND |
+| SDA | A4 |
+| SCL | A5 |
